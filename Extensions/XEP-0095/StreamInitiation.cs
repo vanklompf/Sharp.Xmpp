@@ -159,7 +159,7 @@ namespace S22.Xmpp.Extensions {
 		/// <param name="cb">A callback method to invoke once the result of the
 		/// stream-initation operation has been received.</param>
 		/// <returns>An initialized instance of the InitiationResult class containing
-		/// the negotiated stream-method and session identifier.</returns>
+		/// the negotiated stream-method and session identifier Sid.</returns>
 		/// <exception cref="ArgumentNullException">The to parameter or the mimeType
 		/// parameter or the profile parameter or the streamOptions parameter
 		/// is null.</exception>
@@ -169,7 +169,7 @@ namespace S22.Xmpp.Extensions {
 		/// <exception cref="NotSupportedException">The XMPP entity with
 		/// the specified JID does not support the 'Stream Initiation' XMPP
 		/// extension.</exception>
-		public void InitiateStreamAsync(Jid to, string mimeType, string profile,
+		public string InitiateStreamAsync(Jid to, string mimeType, string profile,
 			IEnumerable<string> streamOptions, XmlElement data = null,
 			Action<InitiationResult, Iq> cb = null) {
 			to.ThrowIfNull("to");
@@ -180,10 +180,12 @@ namespace S22.Xmpp.Extensions {
 				throw new ArgumentException("The streamOptions enumerable must " +
 					"include one or more stream-options.");
 			}
-			if (!ecapa.Supports(to, Extension.StreamInitiation)) {
-				throw new NotSupportedException("The XMPP entity does not support " +
-					"the 'Stream Initiation' extension.");
-			}
+            //FIX ME
+                    //if (!ecapa.Supports(to, Extension.StreamInitiation)) {
+                    //    throw new NotSupportedException("The XMPP entity does not support " +
+                    //        "the 'Stream Initiation' extension.");
+                    //}
+            //FIX ME
 			string sid = GenerateSessionId();
 			var si = CreateSiElement(sid, mimeType, profile, streamOptions, data);
 			// Perform the actual request.
@@ -200,6 +202,7 @@ namespace S22.Xmpp.Extensions {
 				}
 				cb(result, iq);
 			});
+            return sid;
 		}
 
 		/// <summary>

@@ -114,6 +114,10 @@ namespace S22.Xmpp.Extensions {
 		/// thus indicating whether a chat partner is actively engaged in the chat,
 		/// composing a message, temporarily paused, inactive, or gone.
 		/// </summary>
-		ChatStateNotifications
+		ChatStateNotifications,
+        /// <summary>
+        /// An extestion for downloading-uploading avatar vcard data
+        /// </summary>
+        vCardsAvatars
 	}
 }

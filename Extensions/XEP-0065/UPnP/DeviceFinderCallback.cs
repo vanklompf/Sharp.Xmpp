@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+#if WINDOWSPLATFORM
 using UPNPLib;
+#endif
 
 namespace S22.Xmpp.Extensions.Upnp {
+#if WINDOWSPLATFORM
 	/// <summary>
 	/// Represents a class for collecting UPnP-Discovery results.
 	/// </summary>
@@ -67,4 +70,5 @@ namespace S22.Xmpp.Extensions.Upnp {
 			searchCompleted.Set();
 		}
 	}
+#endif
 }

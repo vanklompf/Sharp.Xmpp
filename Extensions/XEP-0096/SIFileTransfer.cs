@@ -169,6 +169,7 @@ namespace S22.Xmpp.Extensions {
 		/// accepted or rejected the file-transfer request.</param>
 		/// <param name="description">A description of the file so the receiver can
 		/// better understand what is being sent.</param>
+        /// <returns>Sid of file transfer</returns>
 		/// <exception cref="ArgumentNullException">The to parameter or the path
 		/// parameter is null.</exception>
 		/// <exception cref="ArgumentException">path is a zero-length string,
@@ -192,12 +193,12 @@ namespace S22.Xmpp.Extensions {
 		/// condition.</exception>
 		/// <exception cref="XmppException">The server returned invalid data or
 		/// another unspecified XMPP error occurred.</exception>
-		public void InitiateFileTransfer(Jid to, string path,
+		public string InitiateFileTransfer(Jid to, string path,
 			string description = null, Action<bool, FileTransfer> cb = null) {
 			to.ThrowIfNull("to");
 			path.ThrowIfNull("path");
 			FileInfo info = new FileInfo(path);
-			InitiateFileTransfer(to, File.OpenRead(path), info.Name, info.Length,
+			return InitiateFileTransfer(to, File.OpenRead(path), info.Name, info.Length,
 				description, cb);
 		}
 
@@ -215,6 +216,7 @@ namespace S22.Xmpp.Extensions {
 		/// accepted or rejected the file-transfer request.</param>
 		/// <param name="description">A description of the file so the receiver can
 		/// better understand what is being sent.</param>
+        /// <returns>Sid of file transfer</returns>
 		/// <exception cref="ArgumentNullException">The to parameter or the stream
 		/// parameter or the name parameter is null.</exception>
 		/// <exception cref="ArgumentOutOfRangeException">The value of the size
@@ -228,19 +230,21 @@ namespace S22.Xmpp.Extensions {
 		/// condition.</exception>
 		/// <exception cref="XmppException">The server returned invalid data or
 		/// another unspecified XMPP error occurred.</exception>
-		public void InitiateFileTransfer(Jid to, Stream stream, string name, long size,
+		public string InitiateFileTransfer(Jid to, Stream stream, string name, long size,
 			string description = null, Action<bool, FileTransfer> cb = null) {
 			to.ThrowIfNull("to");
 			stream.ThrowIfNull("stream");
 			name.ThrowIfNull("name");
 			size.ThrowIfOutOfRange(0, Int64.MaxValue);
-			if (!ecapa.Supports(to, Extension.SIFileTransfer)) {
-				throw new NotSupportedException("The XMPP entity does not support the " +
-					"'SI File Transfer' extension.");
-			}
+            //FIXME FIXME
+                    //if (!ecapa.Supports(to, Extension.SIFileTransfer)) {
+                    //    throw new NotSupportedException("The XMPP entity does not support the " +
+                    //        "'SI File Transfer' extension.");
+                    //}
+            //FIXME FIXME
 			// Perform stream-initiation asynchronously so that the caller is not
 			// blocked until the other site has either accepted or rejected our offer.
-			InitiateStreamAsync(to, name, size, description, (result, iq) => {
+			return InitiateStreamAsync(to, name, size, description, (result, iq) => {
 				OnInitiationResult(result, to, name, stream, size, description, cb);
 			});
 		}
@@ -310,8 +314,10 @@ namespace S22.Xmpp.Extensions {
 				return Xml.Element("si", "http://jabber.org/protocol/si").Child(
 					FeatureNegotiation.Create(new SubmitForm(
 						new ListField("stream-method", method))));
-			} catch {
-				return new XmppError(ErrorType.Cancel, ErrorCondition.BadRequest).Data;
+			} catch (Exception e) {
+                
+                System.Diagnostics.Debug.WriteLine("Exception raised", e.ToString()+e.StackTrace);
+                return new XmppError(ErrorType.Cancel, ErrorCondition.BadRequest).Data;
 			}
 		}
 
@@ -405,7 +411,7 @@ namespace S22.Xmpp.Extensions {
 		/// XmppErrorException to obtain the specific error condition.</exception>
 		/// <exception cref="XmppException">The server returned invalid data or another
 		/// unspecified XMPP error occurred.</exception>
-		void InitiateStreamAsync(Jid to, string name, long size,
+		string InitiateStreamAsync(Jid to, string name, long size,
 			string description = null, Action<InitiationResult, Iq> cb = null) {
 			// Construct the 'file' element which is mandatory for the SI file-transfer
 			// profile.
@@ -418,7 +424,7 @@ namespace S22.Xmpp.Extensions {
 			// Collect namespaces of stream-methods that we can offer the other site.
 			var methods = GetStreamMethods();
 			// Try to initiate an XMPP data-stream.
-			streamInitiation.InitiateStreamAsync(to, mimeType,
+			return streamInitiation.InitiateStreamAsync(to, mimeType,
 				"http://jabber.org/protocol/si/profile/file-transfer", methods, file, cb);
 		}
 
@@ -445,7 +451,7 @@ namespace S22.Xmpp.Extensions {
 			try {
 				// Get the instance of the data-stream extension that the other site has
 				// selected.
-				IDataStream ext = im.GetExtension(result.Method) as IDataStream;
+                IDataStream ext = im.GetExtension(result.Method) as IDataStream;
 				// Register the session.
 				SISession session = new SISession(result.SessionId, stream, size, false,
 					im.Jid, to, ext);
@@ -459,6 +465,7 @@ namespace S22.Xmpp.Extensions {
 				try {
 					ext.Transfer(session);
 				} catch(Exception e) {
+                    System.Diagnostics.Debug.WriteLine(e.Message+e.StackTrace+e.ToString());
 					// Nothing to do here.
 				}
 			} catch {

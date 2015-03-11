@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("S22.Xmpp")]
-[assembly: AssemblyDescription("A library for communicating with an XMPP server")]
+[assembly: AssemblyTitle("Sharp.Xmpp")]
+[assembly: AssemblyDescription("A fork of the S22.Xmpp library for communicating with an XMPP server")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("S22.Xmpp")]
-[assembly: AssemblyCopyright("Copyright © Torben Könke 2013")]
+[assembly: AssemblyProduct("Sharp.Xmpp")]
+[assembly: AssemblyCopyright("Copyright © Sharp.Xmpp PGStath 2015, S22.Xmpp Torben Könke 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.1.*")]
+[assembly: AssemblyFileVersion("1.0.1.*")]

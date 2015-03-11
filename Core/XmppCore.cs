@@ -63,6 +63,10 @@ namespace S22.Xmpp.Core {
 		/// Write lock for the network stream.
 		/// </summary>
 		readonly object writeLock = new object();
+        /// <summary>
+        /// The default Time Out for IQ Requests
+        /// </summary>
+        int millisecondsDefaultTimeout = -1;
 		/// <summary>
 		/// A thread-safe dictionary of wait handles for pending IQ requests.
 		/// </summary>
@@ -156,6 +160,15 @@ namespace S22.Xmpp.Core {
 				password = value;
 			}
 		}
+
+        /// <summary>
+        /// The Default IQ Set /Request message timeout
+        /// </summary>
+        public int MillisecondsDefaultTimeout
+        {
+            get { return millisecondsDefaultTimeout; }
+            set { millisecondsDefaultTimeout = value; }
+        }
 
 		/// <summary>
 		/// If true the session will be TLS/SSL-encrypted if the server supports it.
@@ -255,7 +268,7 @@ namespace S22.Xmpp.Core {
 		/// is not a valid port number.</exception>
 		public XmppCore(string hostname, string username, string password,
 			int port = 5222, bool tls = true, RemoteCertificateValidationCallback validate = null) {
-				Hostname = hostname;
+			    Hostname = hostname;
 				Username = username;
 				Password = password;
 				Port = port;
@@ -471,7 +484,7 @@ namespace S22.Xmpp.Core {
 			XmlElement data = null, CultureInfo language = null,
 			int millisecondsTimeout = -1) {
 			AssertValid();
-			return IqRequest(new Iq(type, null, to, from, data, language));
+			return IqRequest(new Iq(type, null, to, from, data, language), millisecondsTimeout);
 		}
 
 		/// <summary>
@@ -496,11 +509,17 @@ namespace S22.Xmpp.Core {
 		/// <exception cref="TimeoutException">A timeout was specified and it
 		/// expired.</exception>
 		public Iq IqRequest(Iq request, int millisecondsTimeout = -1) {
-			AssertValid();
+            int timeOut = -1;
+            AssertValid();
 			request.ThrowIfNull("request");
 			if (request.Type != IqType.Set && request.Type != IqType.Get)
 				throw new ArgumentException("The IQ type must be either 'set' or 'get'.");
-			// Generate a unique ID for the IQ request.
+            if (millisecondsTimeout == -1)
+            {
+                timeOut = millisecondsDefaultTimeout;
+            }
+            else timeOut = millisecondsTimeout;        
+            // Generate a unique ID for the IQ request.
 			request.Id = GetId();
 			AutoResetEvent ev = new AutoResetEvent(false);
 			Send(request);
@@ -508,9 +527,27 @@ namespace S22.Xmpp.Core {
 			// XML stream.
 			waitHandles[request.Id] = ev;
 			int index = WaitHandle.WaitAny(new WaitHandle[] { ev, cancelIq.Token.WaitHandle },
-				millisecondsTimeout);
-			if (index == WaitHandle.WaitTimeout)
-				throw new TimeoutException();
+                timeOut);
+            if (index == WaitHandle.WaitTimeout)
+            {
+                //An entity that receives an IQ request of type "get" or "set" MUST reply with an IQ response of type 
+                //"result" or "error" (the response MUST preserve the 'id' attribute of the request). 
+                //http://xmpp.org/rfcs/rfc3920.html#stanzas
+                //if (request.Type == IqType.Set || request.Type == IqType.Get)
+
+                //Make sure that its a request towards the server and not towards any client
+                if (request.To.Domain==Jid.Domain && (request.To.Node==null || request.To.Node==""))
+                {
+
+                    Connected = false;
+                    var e=  new XmppDisconnectionException("Timeout Disconnection happened at IqRequest");
+                    if (!disposed)
+                        Error.Raise(this, new ErrorEventArgs(e));
+                    //throw new TimeoutException();
+                }
+
+                //This check is somehow not really needed doue to the IQ must be either set or get
+            }
 			// Reader task errored out.
 			if (index == 1)
 				throw new IOException("The incoming XML stream could not read.");
@@ -518,8 +555,9 @@ namespace S22.Xmpp.Core {
 			Iq response;
 			if (iqResponses.TryRemove(request.Id, out response))
 				return response;
-			// Shouldn't happen.
-			throw new InvalidOperationException();
+			// Shouldn't happen.      
+            	
+            throw new InvalidOperationException();
 		}
 
 		/// <summary>
@@ -637,10 +675,11 @@ namespace S22.Xmpp.Core {
 		/// <exception cref="IOException">There was a failure while writing to the
 		/// network.</exception>
 		public void Close() {
-			AssertValid();
+            //FIXME, instead of asert valid I have ifs, only for the closing
+			//AssertValid();
 			// Close the XML stream.
-			Disconnect();
-			Dispose();
+			if (Connected) Disconnect();
+            if (!disposed) Dispose();
 		}
 
 		/// <summary>
@@ -681,8 +720,10 @@ namespace S22.Xmpp.Core {
 		void AssertValid() {
 			if (disposed)
 				throw new ObjectDisposedException(GetType().FullName);
-			if (!Connected)
+			//FIXME-FIXED
+            if (!Connected)
 				throw new InvalidOperationException("Not connected to XMPP server.");
+            //FIXME
 		}
 
 		/// <summary>
@@ -727,7 +768,7 @@ namespace S22.Xmpp.Core {
 				// FIXME: How is the client's JID constructed if the server does not support
 				// resource binding?
 				if (feats["bind"] != null)
-					Jid = BindResource(resource);
+				Jid = BindResource(resource);
 			} catch (SaslException e) {
 				throw new AuthenticationException("Authentication failed.", e);
 			}
@@ -923,7 +964,19 @@ namespace S22.Xmpp.Core {
 			// XMPP is guaranteed to be UTF-8.
 			byte[] buf = Encoding.UTF8.GetBytes(xml);
 			lock (writeLock) {
-				stream.Write(buf, 0, buf.Length);
+                //FIXME
+                //If we have an IOexception immediatelly we make a disconnection, is it correct?
+                try
+                {
+                    stream.Write(buf, 0, buf.Length);
+
+                }
+                catch (IOException e)
+                {
+                    Connected = false;
+                    throw new XmppDisconnectionException(e.Message,e);
+                }
+                //FIXME
 			}
 		}
 
@@ -956,7 +1009,14 @@ namespace S22.Xmpp.Core {
 		XmlElement SendAndReceive(XmlElement element,
 			params string[] expected) {
 			Send(element);
-			return parser.NextElement(expected);
+            try
+            {
+                return parser.NextElement(expected);
+
+            } catch (XmppDisconnectionException e)  {
+                Connected = false;
+                throw e;
+            }
 		}
 
 		/// <summary>
@@ -992,6 +1052,13 @@ namespace S22.Xmpp.Core {
 				// Unblock any threads blocking on pending IQ requests.
 				cancelIq.Cancel();
 				cancelIq = new CancellationTokenSource();
+                //Add the failed connection
+                if ((e is IOException) || (e is XmppDisconnectionException))
+                {
+                    Connected = false;
+                    var ex = new XmppDisconnectionException(e.ToString());
+                    e = ex;
+                }
 				// Raise the error event.
 				if(!disposed)
 					Error.Raise(this, new ErrorEventArgs(e));
@@ -1020,6 +1087,8 @@ namespace S22.Xmpp.Core {
 				} catch(Exception e) {
 					// FIXME: What should we do if an exception is thrown in one of the
 					// event handlers?
+                    System.Diagnostics.Debug.WriteLine("Error in XMPP Core: " + e.StackTrace + e.ToString());
+                    //throw e;
 				}
 			}
 		}

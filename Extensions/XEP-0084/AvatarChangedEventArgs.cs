@@ -1,12 +1,15 @@
 ﻿using System;
+#if WINDOWSPLATFORM
 using System.Drawing;
-
+#endif
 namespace S22.Xmpp.Extensions {
 	/// <summary>
 	/// Provides data for the AvatarChanged event.
 	/// </summary>
 	[Serializable]
 	public class AvatarChangedEventArgs : EventArgs {
+        #if WINDOWSPLATFORM
+
 		/// <summary>
 		/// The JID of the XMPP entity that published the avatar information.
 		/// </summary>
@@ -56,5 +59,6 @@ namespace S22.Xmpp.Extensions {
 			Hash = hash;
 			Avatar = avatar;
 		}
+#endif
 	}
 }

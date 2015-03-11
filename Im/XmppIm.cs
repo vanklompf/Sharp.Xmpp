@@ -133,6 +133,22 @@ namespace S22.Xmpp.Im {
 			}
 		}
 
+
+        /// <summary>
+        /// The address of the Xmpp entity.
+        /// </summary>
+        public int DefaultTimeOut
+        {
+            get
+            {
+                return core.MillisecondsDefaultTimeout;
+            }
+            set
+            {
+                core.MillisecondsDefaultTimeout = value;
+            }
+        }
+
 		/// <summary>
 		/// Determines whether the instance is connected to the XMPP server.
 		/// </summary>
@@ -199,7 +215,7 @@ namespace S22.Xmpp.Im {
 		/// The event that is raised when an unrecoverable error condition occurs.
 		/// </summary>
 		public event EventHandler<ErrorEventArgs> Error;
-
+        
 		/// <summary>
 		/// Initializes a new instance of the XmppIm.
 		/// </summary>
@@ -247,7 +263,7 @@ namespace S22.Xmpp.Im {
 			SetupEventHandlers();
 		}
 
-		/// <summary>
+ 		/// <summary>
 		/// Establishes a connection to the XMPP server.
 		/// </summary>
 		/// <param name="resource">The resource identifier to bind with. If this is null,
@@ -1537,11 +1553,14 @@ namespace S22.Xmpp.Im {
 		/// </summary>
 		/// <param name="presence">The presence stanza to process.</param>
 		void ProcessSubscriptionRequest(Presence presence) {
-			if (SubscriptionRequest != null &&
-				SubscriptionRequest.Invoke(presence.From) == true)
-					ApproveSubscriptionRequest(presence.From);
-			else
-				RefuseSubscriptionRequest(presence.From);
+
+           /////New Addition in order to be able to handle it via an event
+            if (SubscriptionRequest != null)
+                SubscriptionRequest.Invoke(presence.From);
+            //        == true)
+            //    ApproveSubscriptionRequest(presence.From);
+            //else
+            //    RefuseSubscriptionRequest(presence.From);
 		}
 
 		/// <summary>

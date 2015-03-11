@@ -62,11 +62,13 @@ namespace S22.Xmpp.Client {
 		/// Provides access to the 'User Tune' XMPP extension functionality.
 		/// </summary>
 		UserTune userTune;
+#if WINDOWSPLATFORM
 		/// <summary>
 		/// Provides access to the 'User Avatar' XMPP extension functionality.
 		/// </summary>
 		UserAvatar userAvatar;
-		/// <summary>
+#endif
+        /// <summary>
 		/// Provides access to the 'User Mood' XMPP extension functionality.
 		/// </summary>
 		UserMood userMood;
@@ -114,6 +116,10 @@ namespace S22.Xmpp.Client {
 		/// Provides access to the 'Bits of Binary' XMPP extension.
 		/// </summary>
 		BitsOfBinary bitsOfBinary;
+        /// <summary>
+        /// Provides vcard Based Avatar functionality
+        /// </summary>
+        vCardAvatars vcardAvatars;
 
 		/// <summary>
 		/// The hostname of the XMPP server to connect to.
@@ -212,7 +218,7 @@ namespace S22.Xmpp.Client {
 		/// </summary>
 		public bool Connected {
 			get {
-				return im.Connected;
+                if (im != null) return im.Connected; else return false;
 			}
 		}
 
@@ -224,6 +230,15 @@ namespace S22.Xmpp.Client {
 				return im.Authenticated;
 			}
 		}
+
+        /// <summary>
+        /// The default IQ Set Time out in Milliseconds. -1 means no timeout
+        /// </summary>
+        public int DefaultTimeOut
+        {
+            get { return im.DefaultTimeOut; }
+            set { im.DefaultTimeOut = value; }
+        }
 
 		/// <summary>
 		/// Contains settings for configuring file-transfer options.
@@ -292,6 +307,7 @@ namespace S22.Xmpp.Client {
 			}
 		}
 
+		#if WINDOWSPLATFORM
 		/// <summary>
 		/// The event that is raised when a contact has updated his or her avatar.
 		/// </summary>
@@ -303,6 +319,7 @@ namespace S22.Xmpp.Client {
 				userAvatar.AvatarChanged -= value;
 			}
 		}
+		#endif
 
 		/// <summary>
 		/// The event that is raised when a contact has published tune information.
@@ -831,11 +848,50 @@ namespace S22.Xmpp.Client {
 		/// The following file types are supported:
 		///  BMP, GIF, JPEG, PNG and TIFF.
 		/// </remarks>
+#if WINDOWSPLATFORM
 		public void SetAvatar(string filePath) {
 			AssertValid();
 			filePath.ThrowIfNull("filePath");
 			userAvatar.Publish(filePath);
 		}
+#endif
+        /// <summary>
+        /// Publishes the image located at the specified path as the user's avatar using vcard based Avatars
+        /// </summary>
+        /// <param name="filePath">The path to the image to publish as the user's avatar.</param>
+        public void SetvCardAvatar(string filePath)
+        {
+            AssertValid();
+            filePath.ThrowIfNull("filePath");
+
+            try
+            {
+                using (Stream s = File.OpenRead(filePath))
+                {
+                    vcardAvatars.SetAvatar(s);
+                }
+            }           
+            catch (IOException copyError)
+            {
+                System.Diagnostics.Debug.WriteLine(copyError.Message);
+                //Fix??? Should throw a network exception
+            }         
+
+        }
+
+        /// <summary>
+        /// Get the vcard based Avatar of user with Jid
+        /// </summary>
+        /// <param name="jid">The string jid of the user</param>
+        /// <param name="filepath">The filepath where the avatar will be stored</param>
+        /// <param name="callback">The action that will be executed after the file has been downloaded</param>        
+        public void GetvCardAvatar(string jid, string filepath, Action callback)
+        {
+            AssertValid();
+            vcardAvatars.RequestAvatar(new Jid(jid), filepath, callback);
+
+        }
+
 
 		/// <summary>
 		/// Sets the user's mood to the specified mood value.
@@ -959,6 +1015,7 @@ namespace S22.Xmpp.Client {
 		/// accepted or rejected the file-transfer request.</param>
 		/// <param name="description">A description of the file so the receiver can
 		/// better understand what is being sent.</param>
+        /// <returns>Sid of the file transfer</returns>
 		/// <exception cref="ArgumentNullException">The to parameter or the path
 		/// parameter is null.</exception>
 		/// <exception cref="ArgumentException">path is a zero-length string,
@@ -987,10 +1044,10 @@ namespace S22.Xmpp.Client {
 		/// the XMPP server.</exception>
 		/// <exception cref="ObjectDisposedException">The XmppClient object has been
 		/// disposed.</exception>
-		public void InitiateFileTransfer(Jid to, string path,
+        public string InitiateFileTransfer(Jid to, string path,
 			string description = null, Action<bool, FileTransfer> cb = null) {
 				AssertValid();
-				siFileTransfer.InitiateFileTransfer(to, path, description, cb);
+				return siFileTransfer.InitiateFileTransfer(to, path, description, cb);
 		}
 
 		/// <summary>
@@ -1007,6 +1064,7 @@ namespace S22.Xmpp.Client {
 		/// accepted or rejected the file-transfer request.</param>
 		/// <param name="description">A description of the file so the receiver can
 		/// better understand what is being sent.</param>
+        /// <returns>The Sid of the file transfer</returns>
 		/// <exception cref="ArgumentNullException">The to parameter or the stream
 		/// parameter or the name parameter is null.</exception>
 		/// <exception cref="ArgumentOutOfRangeException">The value of the size
@@ -1025,10 +1083,10 @@ namespace S22.Xmpp.Client {
 		/// the XMPP server.</exception>
 		/// <exception cref="ObjectDisposedException">The XmppClient object has been
 		/// disposed.</exception>
-		public void InitiateFileTransfer(Jid to, Stream stream, string name, long size,
+		public string  InitiateFileTransfer(Jid to, Stream stream, string name, long size,
 			string description = null, Action<bool, FileTransfer> cb = null) {
 				AssertValid();
-				siFileTransfer.InitiateFileTransfer(to, stream, name, size, description, cb);
+				return siFileTransfer.InitiateFileTransfer(to, stream, name, size, description, cb);
 		}
 
 		/// <summary>
@@ -1436,7 +1494,9 @@ namespace S22.Xmpp.Client {
 			block = im.LoadExtension<BlockingCommand>();
 			pep = im.LoadExtension<Pep>();
 			userTune = im.LoadExtension<UserTune>();
+			#if WINDOWSPLATFORM
 			userAvatar = im.LoadExtension<UserAvatar>();
+			#endif
 			userMood = im.LoadExtension<UserMood>();
 			dataForms = im.LoadExtension<DataForms>();
 			featureNegotiation = im.LoadExtension<FeatureNegotiation>();
@@ -1451,6 +1511,7 @@ namespace S22.Xmpp.Client {
 			inBandRegistration = im.LoadExtension<InBandRegistration>();
 			chatStateNotifications = im.LoadExtension<ChatStateNotifications>();
 			bitsOfBinary = im.LoadExtension<BitsOfBinary>();
+            vcardAvatars = im.LoadExtension<vCardAvatars>();
 		}
 	}
 }

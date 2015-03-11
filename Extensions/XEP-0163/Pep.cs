@@ -1,4 +1,5 @@
 ﻿using S22.Xmpp.Core;
+using S22.Xmpp.Extensions.Dataforms;
 using S22.Xmpp.Im;
 using System;
 using System.Collections.Generic;
@@ -109,7 +110,7 @@ namespace S22.Xmpp.Extensions {
 		/// <exception cref="XmppException">The server returned invalid data or another
 		/// unspecified XMPP error occurred.</exception>
 		public void Publish(string node, string itemId = null, params XmlElement[] data) {
-			node.ThrowIfNull("node");
+            node.ThrowIfNull("node");
 			if (!Supported) {
 				throw new NotSupportedException("The server does not support publishing " +
 					"of information.");

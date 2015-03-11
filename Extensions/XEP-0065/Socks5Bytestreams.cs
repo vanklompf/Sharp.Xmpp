@@ -219,7 +219,10 @@ namespace S22.Xmpp.Extensions {
 				StunServer = new DnsEndPoint("stun.l.google.com", 19302);
 				ProxyAllowed = true;
 				Proxies = new HashSet<Streamhost>();
-				UseUPnP = true;
+			UseUPnP = false;
+			#if WINDOWSPLATFORM	
+			UseUPnP = true;
+			#endif
 		}
 
 		/// <summary>
@@ -511,13 +514,17 @@ namespace S22.Xmpp.Extensions {
 				// Fall through if server does not support the 'Server IP Check' extension.
 			}
 			// Next, try to retrieve external IP addresses from UPnP-enabled devices.
-			if (UseUPnP) {
-				try {
+			if (UseUPnP)
+            {
+
+#if WINDOWSPLATFORM
+                try {
 					foreach (var address in UPnP.GetExternalAddresses())
 						set.Add(address);
 				} catch (Exception) {
 					// Fall through in case any device querying goes wrong.
 				}
+#endif
 			}
 			// Finally, perform a STUN query.
 			try {
@@ -548,12 +555,38 @@ namespace S22.Xmpp.Extensions {
 			address.ThrowIfNull("address");
 			// See if the specified address is assigned to one of the network interfaces
 			// of the system. If it isn't, we assume it's behind a NAT.
+            try { 
 			return GetIpAddresses().SingleOrDefault(
 				addr => addr.Equals(address)) == null;
+            }
+            //FIXME
+            //If an exception is raised we take foregranted we are behind NAT?
+            catch
+            {
+                return true;
+            }
+            //END FIXME
 		}
 
+        /// <summary>
+        /// Returns an enumerable collection of the system's IP addresses.
+        /// </summary>
+        /// <param name="address">If specified, only IP addresses that are in
+        /// the same subnet as the address specified are returned. If this is
+        /// null, all of the system's network interfaces IP addresses are
+        /// returned.</param>
+        /// <returns>An enumerable collection of IP addresses.</returns>
+        /// <remarks>This only accounts for IPv4 addresses.</remarks>
+        public static IEnumerable<IPAddress> GetIpAddresses(IPAddress address = null)
+        {
+            #if WINDOWSPLATFORM       
+            return WindowsGetIpAddresses(address);
+            #else 
+            return AndroidGetIpAddresses(address);
+            #endif
+        }
 		/// <summary>
-		/// Returns an enumerable collection of the system's IP addresses.
+		/// Returns an enumerable collection of the system's IP addresses for Windows Platform.
 		/// </summary>
 		/// <param name="address">If specified, only IP addresses that are in
 		/// the same subnet as the address specified are returned. If this is
@@ -561,9 +594,22 @@ namespace S22.Xmpp.Extensions {
 		/// returned.</param>
 		/// <returns>An enumerable collection of IP addresses.</returns>
 		/// <remarks>This only accounts for IPv4 addresses.</remarks>
-		public static IEnumerable<IPAddress> GetIpAddresses(IPAddress address = null) {
+		private static IEnumerable<IPAddress> WindowsGetIpAddresses(IPAddress address = null) {
 			ISet<IPAddress> set = new HashSet<IPAddress>();
-			foreach (var ni in NetworkInterface.GetAllNetworkInterfaces()) {
+            var netInterfaces =  NetworkInterface.GetAllNetworkInterfaces();
+            //FIXME
+            //NetworkInterface.GetAllNetworkInterfaces does not work in XAMARIN, in Android etc.
+            //Thus an exception is raised and we catch it upstream
+            //FIXME
+            //http://stackoverflow.com/questions/17868420/networkinterface-getallnetworkinterfaces-returns-interfaces-with-operationalst
+            //http://developer.xamarin.com/recipes/ios/network/reachability/detect_if_network_is_available/
+            if (netInterfaces==null)
+            {
+                throw new NotImplementedException();
+            }
+            //END FIXME
+            foreach (var ni in netInterfaces)
+            {
 				// Skip interfaces that aren't up.
 				if (ni.OperationalStatus != OperationalStatus.Up)
 					continue;
@@ -585,6 +631,33 @@ namespace S22.Xmpp.Extensions {
 			return set;
 		}
 
+        /// <summary>
+		/// Returns an enumerable collection of the system's IP addresses for Android Platform.
+		/// </summary>
+		/// <param name="address">If specified, only IP addresses that are in
+		/// the same subnet as the address specified are returned. If this is
+		/// null, all of the system's network interfaces IP addresses are
+		/// returned.</param>
+		/// <returns>An enumerable collection of IP addresses.</returns>
+		/// <remarks>This only accounts for IPv4 addresses.</remarks>
+		private static IEnumerable<IPAddress> AndroidGetIpAddresses(IPAddress address = null) {
+			ISet<IPAddress> set = new HashSet<IPAddress>();
+            //var connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
+
+            var netInterfaces =  NetworkInterface.GetAllNetworkInterfaces();
+            //FIXME
+            //NetworkInterface.GetAllNetworkInterfaces does not work in XAMARIN, in Android etc.
+            //Thus an exception is raised and we catch it upstream
+            //FIXME
+            //http://stackoverflow.com/questions/17868420/networkinterface-getallnetworkinterfaces-returns-interfaces-with-operationalst
+            //http://developer.xamarin.com/recipes/ios/network/reachability/detect_if_network_is_available/
+            if (netInterfaces==null)
+            {
+                throw new NotImplementedException();
+            }
+            return null;
+		}
+       
 		/// <summary>
 		/// Performs a direct transfer, meaning we act as a SOCKS5 server.
 		/// </summary>
@@ -607,8 +680,9 @@ namespace S22.Xmpp.Extensions {
 			IEnumerable<IPAddress> externalAddresses = null;
 			try {
 				externalAddresses = GetExternalAddresses();
-				// Check if we might need to forward the server port.
-				if (externalAddresses.Any(addr => BehindNAT(addr)) && UseUPnP) {
+                // Check if we might need to forward the server port.
+#if WINDOWSPLATFORM
+                if (externalAddresses.Any(addr => BehindNAT(addr)) && UseUPnP) {
 					try {
 						UPnP.ForwardPort(socks5Server.Port, ProtocolType.Tcp,
 							"XMPP SOCKS5 File-transfer");
@@ -617,6 +691,7 @@ namespace S22.Xmpp.Extensions {
 						// go on normally. The user can still configure forwarding manually.
 					}
 				}
+#endif
 			} catch (NotSupportedException) {
 				// Not much we can do.
 			}

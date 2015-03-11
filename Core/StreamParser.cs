@@ -101,8 +101,10 @@ namespace S22.Xmpp.Core {
 				// Handle unrecoverable stream errors.
 				if (elem.Name == "stream:error") {
 					string condition = elem.FirstChild != null ?
-						elem.FirstChild.Name : "undefined";
-					throw new IOException("Unrecoverable stream error: " + condition);
+						elem.FirstChild.Name : "undefined";                    
+					//throw new IOException("Unrecoverable stream error: " + condition); 
+                    //This indicates a disconnection event
+                    throw new XmppDisconnectionException("Unrecoverable stream error: " + condition);
 				}
 				if (expected.Length > 0 && !expected.Contains(elem.Name))
 					throw new XmlException("Unexpected XML element: " + elem.Name);

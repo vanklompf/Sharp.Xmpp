@@ -1,4 +1,4 @@
-﻿<S22>
+﻿<Sharp>
   <Xmpp>
     <Client>
       <XmppClient name="GetFeatures">
@@ -168,4 +168,4 @@
       </XmppClient>
     </Client>
   </Xmpp>
-</S22>
+</Sharp>
