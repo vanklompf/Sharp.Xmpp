@@ -7,6 +7,7 @@ First Sharp.Xmpp Release
 * XEP-0153: vCard-Based Avatars, in Extensions\XEP-0153\vCardAvatars.cs
 
 ##Features Added
+* DNS XMPP servers Lookup
 * XmppClient.InitiateFileTransfer now returns also the Sid of the file transfer for future reference and management of the transfer process. 
 * Improved detection of XmppClient and Xmpp Im connection and disconnection events. With this regard:
 ** Added XmppDisconnectionException, which is raised when disconnection is detected in core StreamParser

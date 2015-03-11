@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
+using ARSoft.Tools.Net.Dns;
 
 namespace S22.Xmpp.Core {
 	/// <summary>
@@ -268,7 +269,7 @@ namespace S22.Xmpp.Core {
 		/// is not a valid port number.</exception>
 		public XmppCore(string hostname, string username, string password,
 			int port = 5222, bool tls = true, RemoteCertificateValidationCallback validate = null) {
-			    Hostname = hostname;
+			    Hostname = resolveHostname(hostname);
 				Username = username;
 				Password = password;
 				Port = port;
@@ -294,13 +295,49 @@ namespace S22.Xmpp.Core {
 		/// is not a valid port number.</exception>
 		public XmppCore(string hostname, int port = 5222, bool tls = true,
 			RemoteCertificateValidationCallback validate = null) {
-			Hostname = hostname;
+            Hostname = resolveHostname(hostname);
 			Port = port;
 			Tls = tls;
 			Validate = validate;
 		}
 
-		/// <summary>
+        /// <summary>
+        /// Resolves the DNS XMPP records for the given domain
+        /// </summary>
+        /// <param name="domain">XMPP Domain</param>
+        /// <returns>XMPP server hostname for the Domain</returns>
+        private string resolveHostname(string domain)    {
+            domain.ThrowIfNullOrEmpty("domain");
+
+            DnsMessage dnsMessage = DnsClient.Default.Resolve("_xmpp-client._tcp.cherishly.me", RecordType.Srv);
+            if ((dnsMessage == null) || ((dnsMessage.ReturnCode != ReturnCode.NoError) && (dnsMessage.ReturnCode != ReturnCode.NxDomain)))
+            {
+                throw new Exception("DNS request failed");
+            }
+            else
+            {
+                foreach (DnsRecordBase dnsRecord in dnsMessage.AnswerRecords)
+                {
+                    SrvRecord srvRecord = dnsRecord as SrvRecord;
+                    if (srvRecord != null)
+                    {
+                        Console.WriteLine(srvRecord.ToString());
+                        Console.WriteLine("  |--- Name " + srvRecord.Name);
+                        Console.WriteLine("  |--- Port: " + srvRecord.Port);
+                        Console.WriteLine("  |--- Priority" + srvRecord.Priority);
+                        Console.WriteLine("  |--- Type " + srvRecord.RecordType);
+                        Console.WriteLine("  |--- Target: " + srvRecord.Target);
+                        Console.WriteLine();
+                    }
+                }
+            }
+                    
+
+            return domain;
+        }
+
+        
+       	/// <summary>
 		/// Establishes a connection to the XMPP server.
 		/// </summary>
 		/// <param name="resource">The resource identifier to bind with. If this is null,
