@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Sharp.Xmpp")]
-[assembly: AssemblyDescription("A fork of the S22.Xmpp library for communicating with an XMPP server")]
+[assembly: AssemblyDescription("Sharp.Xmpp is a multiplatform, Windows and Android, .NET XMPP client assembly. Sharp.Xmpp supports IM functionality & a variety of XMPP extensions, is simple and is extensively tested against Android Xamarin. It is a fork of the currently frozen excellent S22.Xmpp project.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("PGStath")]
 [assembly: AssemblyProduct("Sharp.Xmpp")]
-[assembly: AssemblyCopyright("Copyright © Sharp.Xmpp PGStath 2015, S22.Xmpp Torben Könke 2013")]
+[assembly: AssemblyCopyright("Sharp.Xmpp PGStath 2015, S22.Xmpp Torben Könke 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
