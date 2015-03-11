@@ -724,7 +724,7 @@ namespace S22.Xmpp.Core {
            //level exception. Dont throw an exception about connection
             if (!Connected)
             {
-                System.Diagnostics.Debug.WriteLine("Assert Valid: Client is disconnected, however not exception is thrown");
+                System.Diagnostics.Debug.WriteLine("Assert Valid: Client is disconnected, however no exception is thrown");
                 //throw new InvalidOperationException("Not connected to XMPP server.");
             }
             //FIXME
