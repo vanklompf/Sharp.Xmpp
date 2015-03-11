@@ -720,9 +720,13 @@ namespace S22.Xmpp.Core {
 		void AssertValid() {
 			if (disposed)
 				throw new ObjectDisposedException(GetType().FullName);
-			//FIXME-FIXED
+			//FIXME-FIXED: if it is not connected it will be found out by a lower
+           //level exception. Dont throw an exception about connection
             if (!Connected)
-				throw new InvalidOperationException("Not connected to XMPP server.");
+            {
+                System.Diagnostics.Debug.WriteLine("Assert Valid: Client is disconnected, however not exception is thrown");
+                //throw new InvalidOperationException("Not connected to XMPP server.");
+            }
             //FIXME
 		}
 
