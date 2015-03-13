@@ -1108,6 +1108,38 @@ namespace S22.Xmpp.Client {
 			siFileTransfer.CancelFileTransfer(transfer);  
 		}
 
+        
+		/// <summary>
+		/// Cancels the specified file-transfer.
+		/// </summary>
+	    /// <param name="from">From Jid</param>
+        /// <param name="sid">Sid</param>
+        /// <param name="to">To Jid</param>
+		/// <exception cref="ArgumentNullException">The transfer parameter is
+		/// null.</exception>
+		/// <exception cref="ArgumentException">The specified transfer instance does
+		/// not represent an active data-transfer operation.</exception>
+		/// <exception cref="InvalidOperationException">The XmppClient instance is not
+		/// connected to a remote host, or the XmppClient instance has not authenticated with
+		/// the XMPP server.</exception>
+		/// <exception cref="ObjectDisposedException">The XmppClient object has been
+		/// disposed.</exception>
+        public void CancelFileTransfer(string sid, Jid from, Jid to)
+        {
+            #if DEBUG
+            System.Diagnostics.Debug.WriteLine("Aborting File Transfer, sid {0}, from {1}, to {2}", sid, from.ToString(), to.ToString());
+            #endif
+
+            AssertValid();
+            sid.ThrowIfNullOrEmpty("sid");
+            from.ThrowIfNull("from");
+            to.ThrowIfNull("to");
+
+			siFileTransfer.CancelFileTransfer(sid,from,to);  
+		}
+
+     
+
 		/// <summary>
 		/// Initiates in-band registration with the XMPP server in order to register
 		/// a new XMPP account.

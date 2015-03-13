@@ -252,22 +252,52 @@ namespace S22.Xmpp.Extensions {
 		/// <summary>
 		/// Cancels the specified file-transfer.
 		/// </summary>
-		/// <param name="transfer">The file-transfer to cancel.</param>
-		/// <exception cref="ArgumentNullException">The transfer parameter is
+        /// <param name="from">From Jid</param>
+        /// <param name="sid">Sid</param>
+        /// <param name="to">To Jid</param>
+        /// <exception cref="ArgumentNullException">The transfer parameter is
 		/// null.</exception>
 		/// <exception cref="ArgumentException">The specified transfer instance does
 		/// not represent an active data-transfer operation.</exception>
-		public void CancelFileTransfer(FileTransfer transfer) {
-			transfer.ThrowIfNull("transfer");
-			SISession session = GetSession(transfer.SessionId, transfer.From,
-				transfer.To);
+        public void CancelFileTransfer(string sid, Jid from, Jid to)
+        {
+			
+            sid.ThrowIfNullOrEmpty("sid");
+            from.ThrowIfNull("from");
+            to.ThrowIfNull("to");
+			SISession session = GetSession(sid, from,
+				to);
 			if (session == null) {
 				throw new ArgumentException("The specified transfer instance does not " +
 					"represent an active data-transfer operation.");
 			}
+            #if DEBUG
+            System.Diagnostics.Debug.WriteLine("Aborting File Transfer, sid {0}, file {1}, from {2}, to {3}",session.Sid,session.Stream.ToString(),session.From,session.To);
+            #endif
+
 			session.Extension.CancelTransfer(session);
 		}
 
+        /// <summary>
+        /// Cancels the specified file-transfer.
+        /// </summary>
+        /// <param name="transfer">The file-transfer to cancel.</param>
+        /// <exception cref="ArgumentNullException">The transfer parameter is
+        /// null.</exception>
+        /// <exception cref="ArgumentException">The specified transfer instance does
+        /// not represent an active data-transfer operation.</exception>
+        public void CancelFileTransfer(FileTransfer transfer)
+        {
+            transfer.ThrowIfNull("transfer");
+            SISession session = GetSession(transfer.SessionId, transfer.From,
+                transfer.To);
+            if (session == null)
+            {
+                throw new ArgumentException("The specified transfer instance does not " +
+                    "represent an active data-transfer operation.");
+            }
+            session.Extension.CancelTransfer(session);
+        }
 		/// <summary>
 		/// Initializes a new instance of the SIFileTransfer class.
 		/// </summary>

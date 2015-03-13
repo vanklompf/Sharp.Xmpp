@@ -122,7 +122,7 @@ namespace S22.Xmpp.Extensions {
 			Attribute attr = Assembly.GetExecutingAssembly().
 				GetCustomAttribute(typeof(AssemblyProductAttribute));
 			string name = attr != null ? ((AssemblyProductAttribute) attr).Product :
-				"S22.Xmpp";
+				"Sharp.Xmpp";
 			string version = Assembly.GetExecutingAssembly().GetName().
 				Version.ToString();
 			Version = new VersionInformation(name, version,
