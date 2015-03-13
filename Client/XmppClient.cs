@@ -1127,7 +1127,7 @@ namespace S22.Xmpp.Client {
         public void CancelFileTransfer(string sid, Jid from, Jid to)
         {
             #if DEBUG
-            System.Diagnostics.Debug.WriteLine("Aborting File Transfer, sid {0}, from {1}, to {2}", sid, from.ToString(), to.ToString());
+            System.Diagnostics.Debug.WriteLine("XmppClient CancelFileTransfer, sid {0}, from {1}, to {2}", sid, from.ToString(), to.ToString());
             #endif
 
             AssertValid();

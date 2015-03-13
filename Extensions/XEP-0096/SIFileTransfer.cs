@@ -271,9 +271,9 @@ namespace S22.Xmpp.Extensions {
 				throw new ArgumentException("The specified transfer instance does not " +
 					"represent an active data-transfer operation.");
 			}
-            #if DEBUG
-            System.Diagnostics.Debug.WriteLine("Aborting File Transfer, sid {0}, file {1}, from {2}, to {3}",session.Sid,session.Stream.ToString(),session.From,session.To);
-            #endif
+            //#if DEBUG
+            //System.Diagnostics.Debug.WriteLine("SI File Transfer CancelFileTransfer, sid {0}, file {1}, from {2}, to {3}", session.Sid, session.Stream.ToString(), session.From, session.To);
+            //#endif
 
 			session.Extension.CancelTransfer(session);
 		}

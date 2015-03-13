@@ -7,7 +7,7 @@ First Sharp.Xmpp Release
 * XEP-0153: vCard-Based Avatars, in Extensions\XEP-0153\vCardAvatars.cs
 
 ##Features Added
-* DNS XMPP servers Lookup
+* DNS XMPP SRV records lookup is added
 * XmppClient.InitiateFileTransfer now returns also the Sid of the file transfer for future reference and management of the transfer process. 
 * Improved detection of XmppClient and Xmpp Im connection and disconnection events. With this regard:
 ** Added XmppDisconnectionException, which is raised when disconnection is detected in core StreamParser
@@ -23,7 +23,8 @@ XmppClient.DefaultTimeOut & XmppIm.DefaultTimeOut & XmppCore.DefaultTimeOut
 ##Bugs
 * UPNPLib is not present and compilation will result in UPNPLib related errors if the WINDOWSPLATFORM Conditional Compilation Symbol is used
 
-##Open Issues
+##Open Issues and Limitations
+* Connection is performed only on first SRV DNS record server. No reconnections on alternative servers are supported for the time being
 * Proxy only File Transfer is supported and tested on the build version
 * XEP0153 Avatar Update, <x xmlns='vcard-temp:x:update'> message is to be implemented
 * __XmppCore.AssertValid should not check for Connection Online and raise InvalidOperationException__
