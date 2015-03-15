@@ -24,7 +24,7 @@ XmppClient.DefaultTimeOut & XmppIm.DefaultTimeOut & XmppCore.DefaultTimeOut
 * UPNPLib is not present and compilation will result in UPNPLib related errors if the WINDOWSPLATFORM Conditional Compilation Symbol is used
 
 ##Open Issues and Limitations
-* Connection is performed only on first SRV DNS record server. No reconnections on alternative servers are supported for the time being
+* Connection is performed only on first SRV DNS record server. No reconnections on SRV records with less priority are supported for the time being
 * Proxy only File Transfer is supported and tested on the build version
 * XEP0153 Avatar Update, <x xmlns='vcard-temp:x:update'> message is to be implemented
 * __XmppCore.AssertValid should not check for Connection Online and raise InvalidOperationException__
