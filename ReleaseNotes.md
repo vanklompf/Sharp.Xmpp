@@ -7,6 +7,8 @@ First Sharp.Xmpp Release
 * XEP-0153: vCard-Based Avatars, in Extensions\XEP-0153\vCardAvatars.cs
 
 ##Features Added
+* An easy way to add extensions and provide a custom XML messaging over IQ messages. 'XmppClient.RequestCustomIq' for GETing custom requests, and delegate CustomIqDelegate in order to call in the event of 
+custom IQ message arrived. Xml Element is customiq and namespace is urn:sharp.xmpp:customiq.
 * DNS XMPP SRV records lookup is added
 * XmppClient.InitiateFileTransfer now returns also the Sid of the file transfer for future reference and management of the transfer process. 
 * Improved detection of XmppClient and Xmpp Im connection and disconnection events. With this regard:

@@ -28,6 +28,7 @@ namespace S22.Xmpp.Im {
 		/// The set of loaded extensions.
 		/// </summary>
 		ISet<XmppExtension> extensions = new HashSet<XmppExtension>();
+    
 
 		/// <summary>
 		/// The hostname of the XMPP server to connect to.
@@ -175,6 +176,16 @@ namespace S22.Xmpp.Im {
 			get;
 			set;
 		}
+
+        /// <summary>
+        /// A callback method to invoke when a Custom Iq Request is received
+        /// from another XMPP user.
+        /// </summary>
+        public CustomIqRequestDelegate CustomIqDelegate
+        {
+            get;
+            set;
+        }
 
 		/// <summary>
 		/// The event that is raised when a status notification from a contact has been
@@ -1721,5 +1732,6 @@ namespace S22.Xmpp.Im {
 			// If the element has no 'type' attribute, it's a generic privacy rule.
 			return new PrivacyRule(allow, order, granularity);			
 		}
-	}
+
+    }
 }

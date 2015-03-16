@@ -42,6 +42,10 @@ namespace S22.Xmpp.Client {
 		/// Provides access to the 'Ping' XMPP extension functionality.
 		/// </summary>
 		Ping ping;
+        /// <summary>
+        /// Provides access to the 'Custom Iq Extension' functionality
+        /// </summary>
+        CustomIqExtension cusiqextension;
 		/// <summary>
 		/// Provides access to the 'Attention' XMPP extension functionality.
 		/// </summary>
@@ -892,6 +896,18 @@ namespace S22.Xmpp.Client {
 
         }
 
+        /// <summary>
+        /// Requests a Custom Iq from the XMPP entinty Jid 
+        /// </summary>
+        /// <param name="jid">The XMPP entity to request the custom IQ</param>
+        /// <param name="str">The payload string to provide to the Request</param>
+        /// <param name="callback">The callback method to call after the Request Result has being received. Included the serialised dat
+        /// of the answer to the request</param>
+        public void RequestCustomIq(Jid jid, string str, Action<string> callback)
+        {
+            AssertValid();
+            cusiqextension.RequestCustomIqAsync(jid, str, callback);
+        }
 
 		/// <summary>
 		/// Sets the user's mood to the specified mood value.
@@ -1004,6 +1020,23 @@ namespace S22.Xmpp.Client {
 				siFileTransfer.TransferRequest = value;
 			}
 		}
+
+
+        /// <summary>
+        /// A callback method to invoke when a Custom Iq Request is received
+        /// from another XMPP user.
+        /// </summary>
+        public CustomIqRequestDelegate  CustomIqDelegate
+        {
+            get
+            {
+                return im.CustomIqDelegate;
+            }
+            set
+            {
+                im.CustomIqDelegate = value;
+            }
+        }
 
 		/// <summary>
 		/// Offers the specified file to the XMPP user with the specified JID and, if
@@ -1544,6 +1577,7 @@ namespace S22.Xmpp.Client {
 			chatStateNotifications = im.LoadExtension<ChatStateNotifications>();
 			bitsOfBinary = im.LoadExtension<BitsOfBinary>();
             vcardAvatars = im.LoadExtension<vCardAvatars>();
+            cusiqextension = im.LoadExtension<CustomIqExtension>();
 		}
 	}
 }

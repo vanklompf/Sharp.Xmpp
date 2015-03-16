@@ -21,7 +21,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Sharp.Xmpp.xml</DocumentationFile>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -67,6 +67,8 @@
     <Compile Include="Client\FileTransferSettings.cs" />
     <Compile Include="Client\XmppClient.cs" />
     <Compile Include="Core\ErrorEventArgs.cs" />
+    <Compile Include="Extensions\CustomExtension\CustomIqExtension.cs" />
+    <Compile Include="Extensions\CustomExtension\CustomIqRequestDelegate.cs" />
     <Compile Include="Extensions\XEP-0004\DataForms.cs" />
     <Compile Include="Extensions\XEP-0004\Dataforms\BooleanField.cs" />
     <Compile Include="Extensions\XEP-0004\Dataforms\CancelForm.cs" />

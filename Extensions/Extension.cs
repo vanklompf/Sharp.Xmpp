@@ -118,6 +118,10 @@ namespace S22.Xmpp.Extensions {
         /// <summary>
         /// An extestion for downloading-uploading avatar vcard data
         /// </summary>
-        vCardsAvatars
+        vCardsAvatars,
+        /// <summary>
+        /// Wrapper for providing Custom IQ Extensions
+        /// </summary>
+        CustomIqExtension
 	}
 }
