@@ -903,10 +903,10 @@ namespace S22.Xmpp.Client {
         /// <param name="str">The payload string to provide to the Request</param>
         /// <param name="callback">The callback method to call after the Request Result has being received. Included the serialised dat
         /// of the answer to the request</param>
-        public void RequestCustomIq(Jid jid, string str, Action<string> callback)
+        public void RequestCustomIq(Jid jid, string str)
         {
             AssertValid();
-            cusiqextension.RequestCustomIqAsync(jid, str, callback);
+            cusiqextension.RequestCustomIqAsync(jid, str);
         }
 
 		/// <summary>

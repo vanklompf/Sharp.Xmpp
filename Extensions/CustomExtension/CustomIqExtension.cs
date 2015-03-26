@@ -73,7 +73,7 @@ namespace S22.Xmpp.Extensions
             {
                 //call the callback for receiving a relevant stanza
                 //and wait for answer in order provide it
-                response = im.CustomIqDelegate.Invoke(query.InnerText);
+                response = im.CustomIqDelegate.Invoke(stanza.From,query.InnerText);
 
                 if (response != null && response != "")
                 {
@@ -96,6 +96,8 @@ namespace S22.Xmpp.Extensions
 			return true;
 		}
 
+
+
         /// <summary>
         /// Requests the XMPP entity with the specified JID a GET command.
         /// When the Result is received and it not not an error
@@ -111,8 +113,9 @@ namespace S22.Xmpp.Extensions
         /// error condition.</exception>
         /// <exception cref="XmppException">The server returned invalid data or another
         /// unspecified XMPP error occurred.</exception>
-        public void RequestCustomIqAsync(Jid jid, string request, Action<string> callback)
+        public void RequestCustomIqAsync(Jid jid, string request)
         {
+
             jid.ThrowIfNull("jid");
             request.ThrowIfNull("str");
 
@@ -126,50 +129,80 @@ namespace S22.Xmpp.Extensions
             var xml = Xml.Element("customiq", "urn:sharp.xmpp:customiq").Text(request);
 
             //if (request != null)
-             //   xml.Child(Xml.Element("data").Text(request));
+            //   xml.Child(Xml.Element("data").Text(request));
 
             //var xml = Xml.Element("customiq", "urn:sharp.xmpp:customiq").Child(request);
-                //.Attr("id", sid)
-                //.Attr("mime-type", mimeType)
-                //.Attr("profile", profile)
-                //.Child(request);
+            //.Attr("id", sid)
+            //.Attr("mime-type", mimeType)
+            //.Attr("profile", profile)
+            //.Child(request);
             //if (data != null)
-             //   si.Child(data);
+            //   si.Child(data);
 
             //The Request is Async
-            im.IqRequestAsync(IqType.Get, jid, im.Jid, xml, null, (id, iq) =>
-            {
+            im.IqRequest(IqType.Get, jid, im.Jid, xml, null);
 
-                if (iq.Type == IqType.Error)
-                    throw Util.ExceptionFromError(iq, "Response to RequestCustomIqAsync with an error");
-                if (iq.Type == IqType.Result)
-                {
-                    try
-                    {
-                        XmlElement query = iq.Data["customiq"];
-                        string str;
-                        if (query != null)
-                        {
-                            str = query.ToXmlString();
-                        }
-                        else str = "";
-                        //An empty response means the message was received
-                        if (callback != null)
-                        {
-                            callback.Invoke(str);
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        System.Diagnostics.Debug.WriteLine("Not correctly formated response to RequestCustomIqAsync" + e.StackTrace + e.ToString());
-                        throw Util.ExceptionFromError(iq, "Not correctly formated response to RequestCustomIqAsync, "+e.Message);                      
+         }
+            
+        //    jid.ThrowIfNull("jid");
+        //    request.ThrowIfNull("str");
 
-                    }                    
-                }               
-            });               
+        //    //First check if the Jid entity supports the namespace
+        //    if (!ecapa.Supports(jid, Extension.CustomIqExtension))
+        //    {
+        //        throw new NotSupportedException("The XMPP entity does not support the " +
+        //            "'CustomIqExtension' extension.");
+        //    }
+
+        //    var xml = Xml.Element("customiq", "urn:sharp.xmpp:customiq").Text(request);
+
+        //    //if (request != null)
+        //     //   xml.Child(Xml.Element("data").Text(request));
+
+        //    //var xml = Xml.Element("customiq", "urn:sharp.xmpp:customiq").Child(request);
+        //        //.Attr("id", sid)
+        //        //.Attr("mime-type", mimeType)
+        //        //.Attr("profile", profile)
+        //        //.Child(request);
+        //    //if (data != null)
+        //     //   si.Child(data);
+
+        //    //The Request is Async
+        //    im.IqRequestAsync(IqType.Get, jid, im.Jid, xml, null, (id, iq) =>
+        //    {
+
+        //        if (iq.Type == IqType.Error)
+        //            throw Util.ExceptionFromError(iq, "Response to RequestCustomIqAsync with an error");
+        //        if (iq.Type == IqType.Result)
+        //        {
+        //            try
+        //            {
+        //                XmlElement query = iq.Data["customiq"];
+        //                string str;
+        //                if (query != null)
+        //                {
+        //                    str = query.ToXmlString();
+        //                }
+        //                else str = "";
+        //                //An empty response means the message was received
+        //                if (callback != null)
+        //                {
+        //                    callback.Invoke(str);
+        //                }
+        //            }
+        //            catch (Exception e)
+        //            {
+        //                System.Diagnostics.Debug.WriteLine("Not correctly formated response to RequestCustomIqAsync" + e.StackTrace + e.ToString());
+        //                throw Util.ExceptionFromError(iq, "Not correctly formated response to RequestCustomIqAsync, "+e.Message);                      
+
+        //            }                    
+        //        }               
+        //    });               
                          
 
-        }		
+        //}	
+	
+ 
 
 		/// <summary>
 		/// Initializes a new instance of the Ping class.
