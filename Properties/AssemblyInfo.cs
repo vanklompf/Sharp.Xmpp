@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Sharp.Xmpp")]
-[assembly: AssemblyDescription("Sharp.Xmpp is a multiplatform, Windows and Android, .NET XMPP client assembly. Sharp.Xmpp supports IM functionality & a variety of XMPP extensions, is simple and is extensively tested against Android Xamarin. It is a fork of the currently frozen excellent S22.Xmpp project.")]
+[assembly: AssemblyDescription("Sharp.Xmpp is a multiplatform, Windows and Android, .NET XMPP client assembly. Sharp.Xmpp supports IM functionality and a variety of XMPP extensions, is simple and is extensively tested against Android Xamarin. It is a fork of the currently frozen excellent S22.Xmpp project.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("PGStath")]
 [assembly: AssemblyProduct("Sharp.Xmpp")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.1.1")]
-[assembly: AssemblyFileVersion("1.0.1.1")]
+[assembly: AssemblyVersion("1.0.2.1")]
+[assembly: AssemblyFileVersion("1.0.2.1")]
