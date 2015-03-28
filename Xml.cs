@@ -4,7 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 
-namespace S22.Xmpp {
+namespace Sharp.Xmpp {
 	/// <summary>
 	/// Provides a factory method for creating XmlElement instances and adds
 	/// a couple of useful shortcut extensions to the XmlElement class.

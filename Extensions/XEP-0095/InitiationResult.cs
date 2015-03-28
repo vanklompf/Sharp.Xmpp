@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml;
 
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// Represents the result of a stream initiation.
 	/// </summary>

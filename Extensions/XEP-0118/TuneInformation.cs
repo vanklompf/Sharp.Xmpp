@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// Provides information about the music to which a user is listening.
 	/// </summary>

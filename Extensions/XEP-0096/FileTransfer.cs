@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// Represents an on-going file-transfer operation.
 	/// </summary>

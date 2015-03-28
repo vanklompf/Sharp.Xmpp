@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml;
 
-namespace S22.Xmpp.Extensions.Dataforms {
+namespace Sharp.Xmpp.Extensions.Dataforms {
 	/// <summary>
 	/// Represents a field for gathering or providing one or more options
 	/// from among many.

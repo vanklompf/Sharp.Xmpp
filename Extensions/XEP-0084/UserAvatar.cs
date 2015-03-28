@@ -1,4 +1,4 @@
-﻿using S22.Xmpp.Im;
+﻿using Sharp.Xmpp.Im;
 using System;
 using System.Collections.Generic;
 #if WINDOWSPLATFORM
@@ -9,7 +9,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Xml;
 
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
     #if WINDOWSPLATFORM
 
 	/// <summary>

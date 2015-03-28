@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace S22.Xmpp.Extensions.Socks5 {
+namespace Sharp.Xmpp.Extensions.Socks5 {
 	/// <summary>
 	/// Listens for connections from SOCKS5 network clients.
 	/// </summary>

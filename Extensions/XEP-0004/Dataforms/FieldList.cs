@@ -1,11 +1,11 @@
-﻿using S22.Xmpp.Core;
+﻿using Sharp.Xmpp.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
-namespace S22.Xmpp.Extensions.Dataforms {
+namespace Sharp.Xmpp.Extensions.Dataforms {
 	/// <summary>
 	/// Represents a list of data-fields contained in a data-form.
 	/// </summary>

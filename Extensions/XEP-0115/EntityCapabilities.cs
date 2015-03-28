@@ -1,11 +1,11 @@
-﻿using S22.Xmpp.Im;
+﻿using Sharp.Xmpp.Im;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// Implements the 'Entity Capabilities' extension as defined in XEP-0092.
 	/// </summary>

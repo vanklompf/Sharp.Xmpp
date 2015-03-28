@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml;
 
-namespace S22.Xmpp.Extensions.Dataforms {
+namespace Sharp.Xmpp.Extensions.Dataforms {
 	/// <summary>
 	/// Represents a field that is intended to be invisible to the form-submitting
 	/// entity, and is returned with the form.

@@ -1,9 +1,9 @@
-﻿using S22.Xmpp.Core;
-using S22.Xmpp.Im;
+﻿using Sharp.Xmpp.Core;
+using Sharp.Xmpp.Im;
 using System;
 using System.Collections.Generic;
 
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// Implements the 'Ping' extension as defined in XEP-0199.
 	/// </summary>

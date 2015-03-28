@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Xml;
 
-namespace S22.Xmpp.Core {
+namespace Sharp.Xmpp.Core {
 	/// <summary>
 	/// Represents an IQ XML stanza.
 	/// </summary>

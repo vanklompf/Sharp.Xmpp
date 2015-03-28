@@ -1,12 +1,12 @@
-﻿using S22.Xmpp.Extensions;
-using S22.Xmpp.Im;
+﻿using Sharp.Xmpp.Extensions;
+using Sharp.Xmpp.Im;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Net.Security;
 
-namespace S22.Xmpp.Client {
+namespace Sharp.Xmpp.Client {
 	/// <summary>
 	/// Implements an XMPP client providing basic instant messaging (IM) and
 	/// presence functionality as well as various XMPP extension functionality.

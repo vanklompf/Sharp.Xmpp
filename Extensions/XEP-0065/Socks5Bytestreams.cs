@@ -1,7 +1,7 @@
-﻿using S22.Xmpp.Core;
-using S22.Xmpp.Extensions.Socks5;
-using S22.Xmpp.Extensions.Stun;
-using S22.Xmpp.Im;
+﻿using Sharp.Xmpp.Core;
+using Sharp.Xmpp.Extensions.Socks5;
+using Sharp.Xmpp.Extensions.Stun;
+using Sharp.Xmpp.Im;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,9 +13,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using S22.Xmpp.Extensions.Upnp;
+using Sharp.Xmpp.Extensions.Upnp;
 
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// Implements the 'SOCKS5 Bytestreams' extension as defined in XEP-0065.
 	/// </summary>

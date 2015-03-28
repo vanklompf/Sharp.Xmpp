@@ -1,10 +1,10 @@
-﻿using S22.Xmpp.Im;
+﻿using Sharp.Xmpp.Im;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// Implements the 'User Activity' extension as defined in XEP-0108.
 	/// </summary>

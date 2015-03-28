@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Xml;
 
-namespace S22.Xmpp.Core {
+namespace Sharp.Xmpp.Core {
 	/// <summary>
 	/// Represents the base class for XML stanzas as are used by XMPP from which
 	/// all implementations must derive.

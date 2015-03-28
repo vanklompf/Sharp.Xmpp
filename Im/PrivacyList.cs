@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace S22.Xmpp.Im {
+namespace Sharp.Xmpp.Im {
 	/// <summary>
 	/// Represents an XMPP privacy list.
 	/// </summary>

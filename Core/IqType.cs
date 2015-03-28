@@ -1,5 +1,5 @@
 ﻿
-namespace S22.Xmpp.Core {
+namespace Sharp.Xmpp.Core {
 	/// <summary>
 	/// Defines the possible types for IQ stanzas.
 	/// </summary>

@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace S22.Xmpp.Extensions.Socks5 {
+namespace Sharp.Xmpp.Extensions.Socks5 {
 	/// <summary>
 	/// Represents a SOCKS5 request message.
 	/// </summary>

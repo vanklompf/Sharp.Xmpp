@@ -1,5 +1,5 @@
-﻿using S22.Xmpp.Core;
-using S22.Xmpp.Extensions;
+﻿using Sharp.Xmpp.Core;
+using Sharp.Xmpp.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,7 +10,7 @@ using System.Net.Sockets;
 using System.Security.Authentication;
 using System.Xml;
 
-namespace S22.Xmpp.Im {
+namespace Sharp.Xmpp.Im {
 	/// <summary>
 	/// Implements the basic instant messaging (IM) and presence functionality.
 	/// </summary>

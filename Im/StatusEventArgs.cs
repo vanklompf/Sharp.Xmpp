@@ -1,7 +1,7 @@
-﻿using S22.Xmpp.Core;
+﻿using Sharp.Xmpp.Core;
 using System;
 
-namespace S22.Xmpp.Im {
+namespace Sharp.Xmpp.Im {
 	/// <summary>
 	/// Provides data for the Status event.
 	/// </summary>

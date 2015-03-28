@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// Provides data for the 'BytesTransferred' event which is raised by
 	/// IDataStream implementations.

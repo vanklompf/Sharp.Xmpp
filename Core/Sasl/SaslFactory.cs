@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace S22.Xmpp.Core.Sasl {
+namespace Sharp.Xmpp.Core.Sasl {
 	/// <summary>
 	/// A factory class for producing instances of Sasl mechanisms.
 	/// </summary>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// Represents a streamhost entry as is used during S5B negotiation.
 	/// </summary>

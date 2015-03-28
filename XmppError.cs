@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
-namespace S22.Xmpp {
+namespace Sharp.Xmpp {
 	/// <summary>
 	/// Represents an XMPP error.
 	/// </summary>

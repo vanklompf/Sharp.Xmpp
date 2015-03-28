@@ -1,7 +1,7 @@
-﻿using S22.Xmpp.Im;
+﻿using Sharp.Xmpp.Im;
 using System.Collections.Generic;
 
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// The base class from which all implementations of XMPP extensions must
 	/// derive.

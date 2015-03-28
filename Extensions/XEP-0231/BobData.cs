@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
 
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// Represents a piece of binary data in the context of the 'Bits of Binary'
 	/// extension.

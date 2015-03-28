@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace S22.Xmpp.Core.Sasl.Mechanisms {
+namespace Sharp.Xmpp.Core.Sasl.Mechanisms {
 	/// <summary>
 	/// Implements the Sasl Plain authentication method as described in
 	/// RFC 4616.

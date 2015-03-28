@@ -1,5 +1,5 @@
 ﻿
-namespace S22.Xmpp {
+namespace Sharp.Xmpp {
 	/// <summary>
 	/// Defines possible values for the condition of XMPP errors.
 	/// </summary>

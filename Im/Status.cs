@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace S22.Xmpp.Im {
+namespace Sharp.Xmpp.Im {
 	/// <summary>
 	/// Provides status information for a contact.
 	/// </summary>

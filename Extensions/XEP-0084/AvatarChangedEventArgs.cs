@@ -2,7 +2,7 @@
 #if WINDOWSPLATFORM
 using System.Drawing;
 #endif
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// Provides data for the AvatarChanged event.
 	/// </summary>

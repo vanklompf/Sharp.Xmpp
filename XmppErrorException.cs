@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace S22.Xmpp {
+namespace Sharp.Xmpp {
 	/// <summary>
 	/// The exception that is thrown when a recoverable XMPP error condition
 	/// has been encountered.

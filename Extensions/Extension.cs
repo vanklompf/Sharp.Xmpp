@@ -1,5 +1,5 @@
 ﻿
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// An enumeration of supported XMPP extensions.
 	/// </summary>

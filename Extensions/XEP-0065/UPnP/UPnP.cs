@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using UPNPLib;
 #endif
 
-namespace S22.Xmpp.Extensions.Upnp
+namespace Sharp.Xmpp.Extensions.Upnp
 {
 
 #if WINDOWSPLATFORM

@@ -1,6 +1,6 @@
-﻿using S22.Xmpp.Core;
-using S22.Xmpp.Extensions.Dataforms;
-using S22.Xmpp.Im;
+﻿using Sharp.Xmpp.Core;
+using Sharp.Xmpp.Extensions.Dataforms;
+using Sharp.Xmpp.Im;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// Implements the 'SI File Transfer' extension as defined in XEP-0096.
 	/// </summary>

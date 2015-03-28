@@ -1,5 +1,5 @@
 ﻿
-namespace S22.Xmpp.Extensions.Dataforms {
+namespace Sharp.Xmpp.Extensions.Dataforms {
 	/// <summary>
 	/// Defines possible values for the different types of data-forms.
 	/// </summary>

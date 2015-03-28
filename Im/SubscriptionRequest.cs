@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace S22.Xmpp.Im {
+namespace Sharp.Xmpp.Im {
 	/// <summary>
 	/// Represents a request for subscription.
 	/// </summary>

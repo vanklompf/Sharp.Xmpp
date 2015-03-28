@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization;
 
-namespace S22.Xmpp.Extensions.Stun {
+namespace Sharp.Xmpp.Extensions.Stun {
 	/// <summary>
 	/// Implements a rudimentary STUN client for allowing an end host to discover
 	/// its public IP address if it is located behind a NAT. 

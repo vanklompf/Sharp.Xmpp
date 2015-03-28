@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace S22.Xmpp.Extensions.Socks5 {
+namespace Sharp.Xmpp.Extensions.Socks5 {
 	/// <summary>
 	/// Adds extension methods to the BinaryReader class to simplify the
 	/// deserialization of SOCKS5 messages.

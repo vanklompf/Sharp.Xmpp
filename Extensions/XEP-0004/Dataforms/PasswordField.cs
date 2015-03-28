@@ -1,8 +1,8 @@
-﻿using S22.Xmpp.Core;
+﻿using Sharp.Xmpp.Core;
 using System;
 using System.Xml;
 
-namespace S22.Xmpp.Extensions.Dataforms {
+namespace Sharp.Xmpp.Extensions.Dataforms {
 	/// <summary>
 	/// Represents a field for gathering or providing a single line or word of
 	/// text, which shall be obscured in an interface (e.g., with multiple

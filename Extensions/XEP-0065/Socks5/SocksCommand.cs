@@ -1,5 +1,5 @@
 ﻿
-namespace S22.Xmpp.Extensions.Socks5 {
+namespace Sharp.Xmpp.Extensions.Socks5 {
 	/// <summary>
 	/// Defines possible values for the command field of a SOCKS5 request.
 	/// </summary>

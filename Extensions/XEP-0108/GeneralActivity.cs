@@ -1,5 +1,5 @@
 ﻿
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// Defines possible values for the general activity of an XMPP user.
 	/// </summary>

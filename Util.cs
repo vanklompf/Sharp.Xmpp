@@ -1,8 +1,8 @@
-﻿using S22.Xmpp.Core;
+﻿using Sharp.Xmpp.Core;
 using System;
 using System.Xml;
 
-namespace S22.Xmpp {
+namespace Sharp.Xmpp {
 	/// <summary>
 	/// Contains utility and extension methods.
 	/// </summary>

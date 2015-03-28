@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace S22.Xmpp.Im {
+namespace Sharp.Xmpp.Im {
 	/// <summary>
 	/// Defines the possible values for specifying more granular control over
 	/// which kinds of stanzas are to be blocked.

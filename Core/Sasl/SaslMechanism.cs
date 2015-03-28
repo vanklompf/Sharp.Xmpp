@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 
-namespace S22.Xmpp.Core.Sasl {
+namespace Sharp.Xmpp.Core.Sasl {
 	/// <summary>
 	/// The abstract base class from which all classes implementing a Sasl
 	/// authentication mechanism must derive.

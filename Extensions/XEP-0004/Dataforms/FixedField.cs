@@ -1,8 +1,8 @@
-﻿using S22.Xmpp.Core;
+﻿using Sharp.Xmpp.Core;
 using System;
 using System.Xml;
 
-namespace S22.Xmpp.Extensions.Dataforms {
+namespace Sharp.Xmpp.Extensions.Dataforms {
 	/// <summary>
 	/// Represents a field that is intended for data description rather
 	/// than data gathering.

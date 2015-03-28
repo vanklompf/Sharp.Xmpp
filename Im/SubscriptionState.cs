@@ -1,5 +1,5 @@
 ﻿
-namespace S22.Xmpp.Im {
+namespace Sharp.Xmpp.Im {
 	/// <summary>
 	/// Defines the possible values for the subscription state of a roster item.
 	/// </summary>

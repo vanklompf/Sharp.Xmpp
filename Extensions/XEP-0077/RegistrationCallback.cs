@@ -1,6 +1,6 @@
-﻿using S22.Xmpp.Extensions.Dataforms;
+﻿using Sharp.Xmpp.Extensions.Dataforms;
 
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// A callback method which is invoked during the registration process to
 	/// let the user fill out the required fields needed to complete the

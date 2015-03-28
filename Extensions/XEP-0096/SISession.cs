@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace S22.Xmpp.Extensions {
+namespace Sharp.Xmpp.Extensions {
 	/// <summary>
 	/// Represents an SI session as is negotiated during stream initiation.
 	/// </summary>

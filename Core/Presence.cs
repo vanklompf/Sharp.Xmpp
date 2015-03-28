@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Xml;
 
-namespace S22.Xmpp.Core {
+namespace Sharp.Xmpp.Core {
 	/// <summary>
 	/// Represents a Presence XML stanza.
 	/// </summary>

@@ -4,7 +4,7 @@ using System.Threading;
 using UPNPLib;
 #endif
 
-namespace S22.Xmpp.Extensions.Upnp {
+namespace Sharp.Xmpp.Extensions.Upnp {
 #if WINDOWSPLATFORM
 	/// <summary>
 	/// Represents a class for collecting UPnP-Discovery results.

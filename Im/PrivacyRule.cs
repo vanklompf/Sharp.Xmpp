@@ -1,5 +1,5 @@
 ﻿
-namespace S22.Xmpp.Im {
+namespace Sharp.Xmpp.Im {
 	/// <summary>
 	/// Represents a generic privacy rule.
 	/// </summary>

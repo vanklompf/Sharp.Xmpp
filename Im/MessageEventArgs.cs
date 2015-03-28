@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace S22.Xmpp.Im {
+namespace Sharp.Xmpp.Im {
 	/// <summary>
 	/// Provides data for the Message event.
 	/// </summary>

@@ -1,9 +1,9 @@
-﻿using S22.Xmpp.Extensions;
+﻿using Sharp.Xmpp.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Net;
 
-namespace S22.Xmpp.Client {
+namespace Sharp.Xmpp.Client {
 	/// <summary>
 	/// Contains settings for configuring various file-transfer options.
 	/// </summary>

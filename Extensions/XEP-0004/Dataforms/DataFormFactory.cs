@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml;
 
-namespace S22.Xmpp.Extensions.Dataforms {
+namespace Sharp.Xmpp.Extensions.Dataforms {
 	/// <summary>
 	/// A factory for creating data-form instances.
 	/// </summary>

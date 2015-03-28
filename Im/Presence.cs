@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Xml;
 
-namespace S22.Xmpp.Im {
+namespace Sharp.Xmpp.Im {
 	/// <summary>
 	/// Represents a Presence XML stanza as defined in XMPP:IM.
 	/// </summary>
