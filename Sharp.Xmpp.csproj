@@ -53,8 +53,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ARSoft.Tools.Net, Version=1.8.1.0, Culture=neutral, PublicKeyToken=1940454cd762ec57, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\pstath\MomentumApp\androidview\momentumandroidui\packages\ARSoft.Tools.Net.1.8.1\lib\ARSoft.Tools.Net.dll</HintPath>
+      <HintPath>packages\ARSoft.Tools.Net.1.8.1\lib\ARSoft.Tools.Net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -154,6 +154,7 @@
     <Compile Include="Extensions\XEP-0231\BitsOfBinary.cs" />
     <Compile Include="Extensions\XEP-0231\BobData.cs" />
     <Compile Include="Extensions\XEP-0279\ServerIpCheck.cs" />
+    <Compile Include="Extensions\XEP-0280\MessageCarbons.cs" />
     <Compile Include="Im\SubscriptionRequest.cs" />
     <Compile Include="XmppDisconnectionException.cs" />
     <Compile Include="XmppExceptions.cs" />
@@ -232,6 +233,7 @@
     <None Include="ReleaseNotes.md" />
     <None Include="UPNPLib" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
