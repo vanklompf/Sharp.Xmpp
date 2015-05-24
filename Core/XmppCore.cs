@@ -628,9 +628,10 @@ namespace Sharp.Xmpp.Core {
                 //if (request.Type == IqType.Set || request.Type == IqType.Get)
 
                 //Make sure that its a request towards the server and not towards any client
-                if (request.To.Domain==Jid.Domain && (request.To.Node==null || request.To.Node==""))
-                {
+                var ping = request.Data["ping"];
 
+                if (request.To.Domain == Jid.Domain && (request.To.Node == null || request.To.Node == "") && (ping != null && ping.NamespaceURI == "urn:xmpp:ping"))
+                {
                     Connected = false;
                     var e=  new XmppDisconnectionException("Timeout Disconnection happened at IqRequest");
                     if (!disposed)

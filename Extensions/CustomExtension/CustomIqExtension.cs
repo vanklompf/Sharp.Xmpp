@@ -140,7 +140,7 @@ namespace Sharp.Xmpp.Extensions
             //   si.Child(data);
 
             //The Request is Async
-            im.IqRequest(IqType.Get, jid, im.Jid, xml, null);
+            im.IqRequestAsync(IqType.Get, jid, im.Jid, xml, null);
 
          }
             
