@@ -124,6 +124,10 @@ namespace Sharp.Xmpp.Client {
         /// Provides vcard Based Avatar functionality
         /// </summary>
         vCardAvatars vcardAvatars;
+        /// <summary>
+        /// Provides the Message Carbons extension
+        /// </summary>
+        MessageCarbons messageCarbons;
 
 		/// <summary>
 		/// The hostname of the XMPP server to connect to.
@@ -1573,6 +1577,7 @@ namespace Sharp.Xmpp.Client {
 			FileTransferSettings = new FileTransferSettings(socks5Bytestreams,
 				siFileTransfer);
 			serverIpCheck = im.LoadExtension<ServerIpCheck>();
+            messageCarbons = im.LoadExtension<MessageCarbons>();
 			inBandRegistration = im.LoadExtension<InBandRegistration>();
 			chatStateNotifications = im.LoadExtension<ChatStateNotifications>();
 			bitsOfBinary = im.LoadExtension<BitsOfBinary>();
