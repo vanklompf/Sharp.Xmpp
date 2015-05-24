@@ -1,10 +1,19 @@
+﻿# 1.0.2.2
+
+##XMPP Extensions Added
+* XEP-0280: Message Carbons, contributed by Ignacio Nicolás Rodríguez, ignacionr 
+
+##Other improvements
+* Disconnection detection improvements
+
 #1.0.0.1
 First Sharp.Xmpp Release
 ##Bugs resolved
 * In SaslDigestMd5, replaced `digestUri = "xmpp/" + fields["realm"];` from initial `imap` which caused connection setup failure
 
-##Extensions and Protocol Features Added
-* XEP-0153: vCard-Based Avatars, in Extensions\XEP-0153\vCardAvatars.cs
+##XMPP Extensions Added
+* XEP-0153: vCard-Based Avatars
+* XEP-0280: Message Carbons, contributed by Ignacio Nicolás Rodríguez, ignacionr 
 
 ##Features Added
 * An easy way to add extensions and provide a custom XML messaging over IQ messages. 'XmppClient.RequestCustomIq' for GETing custom requests, and delegate CustomIqDelegate in order to call in the event of 
