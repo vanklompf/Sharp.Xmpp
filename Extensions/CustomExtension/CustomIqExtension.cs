@@ -68,12 +68,17 @@ namespace Sharp.Xmpp.Extensions
             //It has not to do with the semantics of the message
             XmlElement query = stanza.Data["customiq"];
 
+            XmlDocument targetDocument = new XmlDocument();
+
+            CopyNodes(targetDocument, targetDocument, query.FirstChild);
+            
+
             var xmlresponse = Xml.Element("customiq", "urn:sharp.xmpp:customiq");
             try
             {
                 //call the callback for receiving a relevant stanza
                 //and wait for answer in order provide it
-                response = im.CustomIqDelegate.Invoke(stanza.From,query.InnerXml);
+                response = im.CustomIqDelegate.Invoke(stanza.From, targetDocument.InnerXml);
 
                 if (response != null && response != "")
                 {
@@ -95,6 +100,17 @@ namespace Sharp.Xmpp.Extensions
             //Also send a void acknowledgement
 			return true;
 		}
+
+            public void CopyNodes( XmlDocument targetDocument, XmlNode targetNode, XmlNode source ) {
+                XmlNode targetChildNode = targetDocument.CreateNode(source.NodeType, source.Name, "");
+                 if ( !source.HasChildNodes )
+                     targetChildNode.InnerText = source.InnerText;
+                 targetNode.AppendChild(targetChildNode);
+                 foreach (XmlNode childNode in source.ChildNodes)
+                 {
+                     CopyNodes(targetDocument, targetChildNode, childNode);
+                 }
+           }
 
 
 
