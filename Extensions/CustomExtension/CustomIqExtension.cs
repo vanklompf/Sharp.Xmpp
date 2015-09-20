@@ -73,7 +73,7 @@ namespace Sharp.Xmpp.Extensions
             {
                 //call the callback for receiving a relevant stanza
                 //and wait for answer in order provide it
-                response = im.CustomIqDelegate.Invoke(stanza.From,query.InnerText);
+                response = im.CustomIqDelegate.Invoke(stanza.From,query.InnerXml);
 
                 if (response != null && response != "")
                 {
