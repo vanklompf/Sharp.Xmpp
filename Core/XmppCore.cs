@@ -81,6 +81,10 @@ namespace Sharp.Xmpp.Core {
         /// The default Time Out for IQ Requests
         /// </summary>
         int millisecondsDefaultTimeout = -1;
+        /// <summary>
+        /// The default value for debugging stanzas is false
+        /// </summary>
+        private bool debugStanzas=false;
 		/// <summary>
 		/// A thread-safe dictionary of wait handles for pending IQ requests.
 		/// </summary>
@@ -182,6 +186,16 @@ namespace Sharp.Xmpp.Core {
         {
             get { return millisecondsDefaultTimeout; }
             set { millisecondsDefaultTimeout = value; }
+        }
+
+        /// <summary>
+        /// Print XML stanzas for debugging purposes
+        /// </summary>
+        public bool DebugStanzas {
+
+            get { return debugStanzas; }
+            set { debugStanzas = value; }
+        
         }
 
 		/// <summary>
@@ -1066,7 +1080,7 @@ namespace Sharp.Xmpp.Core {
                 try
                 {
                     stream.Write(buf, 0, buf.Length);
-
+                    if (debugStanzas) System.Diagnostics.Debug.WriteLine(xml);
                 }
                 catch (IOException e)
                 {
@@ -1124,7 +1138,7 @@ namespace Sharp.Xmpp.Core {
 		void ReadXmlStream() {
 			try {
 				while (true) {
-					XmlElement elem = parser.NextElement("iq", "message", "presence");
+                    XmlElement elem = parser.NextElement("iq", "message", "presence");
 					// Parse element and dispatch.
 					switch (elem.Name) {
 						case "iq":
@@ -1172,6 +1186,7 @@ namespace Sharp.Xmpp.Core {
 			while (true) {
 				try {
 					Stanza stanza = stanzaQueue.Take(cancelDispatch.Token);
+                    if (debugStanzas) System.Diagnostics.Debug.WriteLine(stanza.ToString());
 					if (stanza is Iq)
 						Iq.Raise(this, new IqEventArgs(stanza as Iq));
 					else if (stanza is Message)
@@ -1227,5 +1242,6 @@ namespace Sharp.Xmpp.Core {
 			Connected = false;
 			Authenticated = false;
 		}
-	}
+
+    }
 }

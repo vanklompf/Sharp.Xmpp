@@ -248,6 +248,15 @@ namespace Sharp.Xmpp.Client {
             set { im.DefaultTimeOut = value; }
         }
 
+        /// <summary>
+        /// If true prints XML stanzas
+        /// </summary>
+        public bool DebugStanzas
+        {
+            get { return im.DebugStanzas; }
+            set { im.DebugStanzas = value; }
+        }
+
 		/// <summary>
 		/// Contains settings for configuring file-transfer options.
 		/// </summary>

@@ -150,6 +150,21 @@ namespace Sharp.Xmpp.Im {
             }
         }
 
+        /// <summary>
+        /// Print XML stanzas for debugging purposes
+        /// </summary>
+        public bool DebugStanzas {
+            get
+            {
+                return core.DebugStanzas;
+            }
+            set
+            {
+                core.DebugStanzas = value;
+            }
+        }
+
+
 		/// <summary>
 		/// Determines whether the instance is connected to the XMPP server.
 		/// </summary>
@@ -1395,7 +1410,7 @@ namespace Sharp.Xmpp.Im {
 			Iq ret = IqRequest(IqType.Set, Hostname, null,
 				Xml.Element("session", "urn:ietf:params:xml:ns:xmpp-session"));
 			if (ret.Type == IqType.Error)
-				throw Util.ExceptionFromError(ret, "Session establishment failed.");
+				throw Util.ExceptionFromError(ret, "Session establishment failed for Hostname: "+Hostname);
 		}
 
 		/// <summary>
@@ -1732,6 +1747,7 @@ namespace Sharp.Xmpp.Im {
 			// If the element has no 'type' attribute, it's a generic privacy rule.
 			return new PrivacyRule(allow, order, granularity);			
 		}
+
 
     }
 }

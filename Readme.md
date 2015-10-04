@@ -63,7 +63,7 @@ guide, examples and details on using the classes and methods exposed by the S22.
 
 ### Credits
 
-The Sharp.Xmpp library is copyright © 2015 Panos Georgiou Stath.
+The Sharp.Xmpp library is copyright © 2015 Panagiotis Georgiou Stathopoulos.
 The initial S22.Xmpp library is copyright © 2013-2014 Torben Könke.
 
 
