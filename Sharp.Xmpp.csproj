@@ -52,8 +52,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ARSoft.Tools.Net, Version=1.8.1.0, Culture=neutral, PublicKeyToken=1940454cd762ec57, processorArchitecture=MSIL">
-      <HintPath>packages\ARSoft.Tools.Net.1.8.1\lib\ARSoft.Tools.Net.dll</HintPath>
+    <Reference Include="ARSoft.Tools.Net, Version=1.8.2.0, Culture=neutral, PublicKeyToken=1940454cd762ec57, processorArchitecture=MSIL">
+      <HintPath>C:\Users\afk006\Documents\Visual Studio 2015\Projects\LocationAgent\packages\ARSoft.Tools.Net.1.8.2\lib\net35\ARSoft.Tools.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
