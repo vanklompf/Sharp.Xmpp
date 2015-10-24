@@ -113,23 +113,23 @@ namespace Sharp.Xmpp.Extensions
            }
 
 
-
-        /// <summary>
-        /// Requests the XMPP entity with the specified JID a GET command.
-        /// When the Result is received and it not not an error
-        /// if fires the callback function
-        /// </summary>
-        /// <param name="jid">The JID of the XMPP entity to get.</param>
-        /// <exception cref="ArgumentNullException">The jid parameter
-        /// is null.</exception>
-        /// <exception cref="NotSupportedException">The XMPP entity with
-        /// the specified JID does not support the 'Ping' XMPP extension.</exception>
-        /// <exception cref="XmppErrorException">The server returned an XMPP error code.
-        /// Use the Error property of the XmppErrorException to obtain the specific
-        /// error condition.</exception>
-        /// <exception cref="XmppException">The server returned invalid data or another
-        /// unspecified XMPP error occurred.</exception>
-        public void RequestCustomIqAsync(Jid jid, string request)
+      /// <summary>
+      /// Requests the XMPP entity with the specified JID a GET command.
+      /// When the Result is received and it not not an error
+      /// if fires the callback function
+      /// </summary>
+      /// <param name="jid">The JID of the XMPP entity to get.</param>
+      /// <param name="request">Custom iq element</param>
+      /// <exception cref="ArgumentNullException">The jid parameter
+      /// is null.</exception>
+      /// <exception cref="NotSupportedException">The XMPP entity with
+      /// the specified JID does not support the 'Ping' XMPP extension.</exception>
+      /// <exception cref="XmppErrorException">The server returned an XMPP error code.
+      /// Use the Error property of the XmppErrorException to obtain the specific
+      /// error condition.</exception>
+      /// <exception cref="XmppException">The server returned invalid data or another
+      /// unspecified XMPP error occurred.</exception>
+      public void RequestCustomIqAsync(Jid jid, string request)
         {
 
             jid.ThrowIfNull("jid");

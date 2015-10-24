@@ -827,6 +827,7 @@ namespace Sharp.Xmpp.Client {
 			im.RemoveFromRoster(item);
 		}
 
+#if WINDOWSPLATFORM
 		/// <summary>
 		/// Publishes the image located at the specified path as the user's avatar.
 		/// </summary>
@@ -865,18 +866,18 @@ namespace Sharp.Xmpp.Client {
 		/// The following file types are supported:
 		///  BMP, GIF, JPEG, PNG and TIFF.
 		/// </remarks>
-#if WINDOWSPLATFORM
 		public void SetAvatar(string filePath) {
 			AssertValid();
 			filePath.ThrowIfNull("filePath");
 			userAvatar.Publish(filePath);
 		}
 #endif
-        /// <summary>
-        /// Publishes the image located at the specified path as the user's avatar using vcard based Avatars
-        /// </summary>
-        /// <param name="filePath">The path to the image to publish as the user's avatar.</param>
-        public void SetvCardAvatar(string filePath)
+
+    /// <summary>
+    /// Publishes the image located at the specified path as the user's avatar using vcard based Avatars
+    /// </summary>
+    /// <param name="filePath">The path to the image to publish as the user's avatar.</param>
+    public void SetvCardAvatar(string filePath)
         {
             AssertValid();
             filePath.ThrowIfNull("filePath");
@@ -909,14 +910,12 @@ namespace Sharp.Xmpp.Client {
 
         }
 
-        /// <summary>
-        /// Requests a Custom Iq from the XMPP entinty Jid 
-        /// </summary>
-        /// <param name="jid">The XMPP entity to request the custom IQ</param>
-        /// <param name="str">The payload string to provide to the Request</param>
-        /// <param name="callback">The callback method to call after the Request Result has being received. Included the serialised dat
-        /// of the answer to the request</param>
-        public void RequestCustomIq(Jid jid, string str)
+	  /// <summary>
+	  /// Requests a Custom Iq from the XMPP entinty Jid 
+	  /// </summary>
+	  /// <param name="jid">The XMPP entity to request the custom IQ</param>
+	  /// <param name="str">The payload string to provide to the Request</param>
+	  public void RequestCustomIq(Jid jid, string str)
         {
             AssertValid();
             cusiqextension.RequestCustomIqAsync(jid, str);
